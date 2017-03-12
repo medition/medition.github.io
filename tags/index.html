@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        medition&#39;s blog
+        tags｜medition&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://medition.github.io/archives/">
+    <link rel="canonical" href="http://medition.github.io/tags/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -133,149 +133,74 @@
 </script>
 
 <!-- Main Content -->
-
+<style>
+    .intro-header .site-heading {
+        margin: 50px;
+    }
+</style>
 
 <!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="//tva4.sinaimg.cn/crop.4.6.504.504.180/b3b70a1fjw1enpnl3h0xrj20e60e740h.jpg"/>
-                        <h5><a href="/about/">m3d1t10n</a></h5>
-                        <p>专业内要内行,专业外不外行</p>
-                    </div>
+                    <h1>tags</h1>
+                    <span class="subheading"></span>
                 </div>
             </div>
-        </header>
+        </div>
     </div>
-</div>
+</header>
+
 <!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
+<div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+            <div id='tag_cloud' class="tags">
+                
+                <a href="#Web Security" title="Web Security" rel="1">Web Security</a>
+                
+                <a href="#Mysql Injection" title="Mysql Injection" rel="1">Mysql Injection</a>
+                
+            </div>
 
-
-
-<div class="post-preview "
-     style="background-image: url('/images/head.jpg')">
-    <a href="/2016/05/26/MysqlInjection/">
-        <h2 class="post-title">
-            MySQL注入总结
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2016-05-26
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                MySQL注入总结（以数字型注入为例）0x00 Union Injection
-判断注入点(数字型)
-
-www.site.com/xxx.php?id=1www.site.com/xxx.php?id=1&apos; -&gt;不正常，可能存在注入
-
-确定注入点
-
-www.site.com/xx..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
-</ul>
-
-
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
-                    
-                    <img src="//tva4.sinaimg.cn/crop.4.6.504.504.180/b3b70a1fjw1enpnl3h0xrj20e60e740h.jpg"/>
-                    
-                    <h5><a href="/about/">m3d1t10n</a></h5>
-                    
-                    <p>专业内要内行,专业外不外行</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/m3d1t10n">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/medition">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
+            <!-- 标签列表 -->
             
-            <section>
-                <div class="tags">
-                    
-                    
-                    <a href="/tags/#Web Security" title="Web Security"
-                       rel="1">Web Security</a>
-                    
-                    
-                    
-                    <a href="/tags/#Mysql Injection" title="Mysql Injection"
-                       rel="1">Mysql Injection</a>
-                    
-                    
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Web Security">
+                    <span class="tag-text">Web Security</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/2016/05/26/MysqlInjection/">
+                        <h2 class="post-title">
+                            MySQL注入总结
+                        </h2>
+                        
+                    </a>
                 </div>
-            </section>
+                <hr>
+                
+            </div>
             
-
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Mysql Injection">
+                    <span class="tag-text">Mysql Injection</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/2016/05/26/MysqlInjection/">
+                        <h2 class="post-title">
+                            MySQL注入总结
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
             
 
         </div>

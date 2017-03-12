@@ -6,14 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="medition在Github上的个人博客">
+    <meta name="description" content="m3d1t10n在Github上的个人博客">
     <meta name="keyword" content="null">
     <meta name="theme-color" content="#600090">
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
     <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
-    <link rel="alternate" type="application/atom+xml" title="medition" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="m3d1t10n" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
@@ -56,7 +56,7 @@
             </button>
             <a class="navbar-brand animated pulse" href="/">
                 <span class="brand-logo">
-                    medition
+                    m3d1t10n
                 </span>
                 's Blog
             </a>
@@ -77,7 +77,25 @@
                     </li>
 					
                     
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+								
+							
+						
+                    
 					
+					
+						<li>
+							<a href="/about">About</a>
+						</li>
 					
                 </ul>
             </div>
@@ -120,13 +138,13 @@
 
 
 <img class="wechat-title-img"
-     src="nullimg/post-default.jpg">
+     src="/images/head.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('nullimg/post-default.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+        background-image: url('/images/head.jpg')
     }
 
     
@@ -138,8 +156,6 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
                     <h1>MySQL注入总结</h1>
-                    
-                    <h2 class="subheading">MySQL注入总结</h2>
                     
                     <span class="meta">
                          作者 medition
@@ -329,12 +345,45 @@
 
                 <hr>
                 
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/05/26/MysqlInjection/"
+                     data-title="MySQL注入总结"
+                     data-url="http://medition.github.io/2016/05/26/MysqlInjection/"
+                     data-images=""
+                     data-content="MySQL注入总结（以数字型注入为例）0x00 Union Injection
+判断注入点(数... | medition&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
 
                 <ul class="pager">
                     
                     
                 </ul>
 
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/05/26/MysqlInjection/"
+                         data-title="MySQL注入总结"
+                         data-url="http://medition.github.io/2016/05/26/MysqlInjection/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
                 
 
                 
@@ -384,6 +433,25 @@
 </article>
 
 
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'm3d1t10n';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
 
 
 
@@ -401,16 +469,34 @@
                 
 
                 
+                    <li>
+                        <a target="_blank" href="http://weibo.com/m3d1t10n">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
 
                 
 
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/medition">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
                 
 
                 
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; medition 2017
+                    Copyright &copy; m3d1t10n 2017
                     <br>
                     <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
                     <br>
@@ -485,7 +571,7 @@
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!--wechat title img-->
-<img class="wechat-title-img" src="null">
+<img class="wechat-title-img" src="//tva4.sinaimg.cn/crop.4.6.504.504.180/b3b70a1fjw1enpnl3h0xrj20e60e740h.jpg">
 </body>
 
 </html>
